@@ -23,7 +23,7 @@ namespace EShop
         {
             services.AddDbContext<ProductDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ProductDbContext")));
-            
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

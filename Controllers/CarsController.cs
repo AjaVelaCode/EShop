@@ -1,5 +1,8 @@
 ﻿using EShop.Data;
+using EShop.DTOs;
 using EShop.Entities;
+using EShop.Extensions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,36 +25,111 @@ namespace EShop.Controllers
             _context = context;
         }
 
-        // GET: api/<CarsController>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Car>>> GetCars()
         {
-            return await _context.Cars.ToListAsync();
+            try
+            {
+                return Ok(await _context.Cars.ToListAsync());
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data from the database");
+            }
         }
 
-        // GET api/<CarsController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Car>> GetCar(int id)
         {
-            return await _context.Cars.FindAsync(id);
+            try
+            {
+                var result = await _context.Cars.FindAsync(id);
+                if (result == null) return NotFound();
+                return result;
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data from the database");
+            }
         }
 
-        // POST api/<CarsController>
+        [HttpGet("search-by-name")]
+        public async Task<ActionResult<List<Car>>> GetCar(string name)
+        {
+            try
+            {
+                List<Car> result = await _context.Cars.QueryByName(name).ToListAsync();
+                if (result.Count < 1) return NotFound();
+                return result;
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data from the database");
+            }
+        }
+
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<Car>> CreateCar([FromBody]Car car)
         {
+            try
+            {
+                if (car == null) return BadRequest();
+                var createdCar = _context.Cars.Add(car);
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error retriveing data from the database");
+            }
         }
 
-        // PUT api/<CarsController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> PutCar(int id, [FromBody] CarDto carDto)
         {
+            if (id != carDto.Id)
+            {
+                return BadRequest();
+            }
+
+            var carItem = await _context.Cars.FindAsync(id);
+
+            if (carItem == null) return NotFound();
+
+            carItem.Name = carDto.Name;
+            carItem.Price = carDto.Price;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CarExists(id)) return NotFound();
+            }
+            return Ok();
         }
 
-        // DELETE api/<CarsController>/5
+        private bool CarExists(int id) => _context.Cars.Any(e => e.Id == id);
+
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult> DeleteCar(int id)
         {
+            Car car = await FindCar(id);
+            
+            if (car != null)
+            {
+                _context.Remove(_context.Cars.Single(car => car.Id == id));
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            else return BadRequest();
+        }
+
+        private async Task<Car> FindCar(int carId)
+        {
+            if (carId == default) return null;
+            return await _context.Cars.Where(x => x.Id == carId).FirstOrDefaultAsync();
         }
     }
 }
