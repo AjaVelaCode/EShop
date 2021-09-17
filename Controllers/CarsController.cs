@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EShop.Data;
+using EShop.Entities;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,18 +15,25 @@ namespace EShop.Controllers
     [ApiController]
     public class CarsController : ControllerBase
     {
+        private readonly ProductDbContext _context;
+
+        public CarsController(ProductDbContext context)
+        {
+            _context = context;
+        }
+
         // GET: api/<CarsController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<IEnumerable<Car>>> GetCars()
         {
-            return new string[] { "value1", "value2" };
+            return await _context.Cars.ToListAsync();
         }
 
         // GET api/<CarsController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<Car>> GetCar(int id)
         {
-            return "value";
+            return await _context.Cars.FindAsync(id);
         }
 
         // POST api/<CarsController>
