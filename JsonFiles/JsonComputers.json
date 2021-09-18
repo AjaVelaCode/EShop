@@ -1,0 +1,44 @@
+{
+  "computers": [
+    {
+      "id": 1,
+      "name": "Desktop-Ih",
+      "manufacturer": "Lenovo",
+      "price": 250,
+      "procesor": "i5",
+      "ram": "8Gb"
+    },
+    {
+      "id": 2,
+      "name": "Desktop-nn",
+      "manufacturer": "Lenovo",
+      "price": 245,
+      "procesor": "i7",
+      "ram": "4Gb"
+    },
+    {
+      "id": 3,
+      "name": "Desktop-xx",
+      "manufacturer": "Toshiba",
+      "price": 245,
+      "procesor": "i7",
+      "ram": "4Gb"
+    },
+    {
+      "id": 4,
+      "name": "Desktop-xx",
+      "manufacturer": "Assus",
+      "price": 300,
+      "procesor": "i5",
+      "ram": "12Gb"
+    },
+    {
+      "id": 5,
+      "name": "Desktop-xx",
+      "manufacturer": "Mac",
+      "price": 400,
+      "procesor": "i7",
+      "ram": "12Gb"
+    }
+  ]
+}
