@@ -54,12 +54,12 @@ namespace EShop.Controllers
         }
 
         [HttpGet("search-by-name")]
-        public async Task<ActionResult<List<Car>>> GetCar(string name)
+        public async Task<ActionResult<List<Car>>> GetCarByName(string name)
         {
             try
             {
                 List<Car> result = await _context.Cars.QueryByName(name).ToListAsync();
-                if (result.Count < 1) return NotFound();
+                if (result.Count < 1) return NotFound("Not found");
                 return result;
             }
             catch (Exception)
@@ -76,7 +76,7 @@ namespace EShop.Controllers
                 if (car == null) return BadRequest();
                 var createdCar = _context.Cars.Add(car);
                 await _context.SaveChangesAsync();
-                return Ok();
+                return Ok(createdCar);
             }
             catch (Exception)
             {
@@ -85,11 +85,11 @@ namespace EShop.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCar(int id, [FromBody] CarDto carDto)
+        public async Task<ActionResult> PutCar(int id, [FromBody] CarDto carDto)
         {
             if (id != carDto.Id)
             {
-                return BadRequest();
+                return BadRequest("Not valid ID");
             }
 
             var carItem = await _context.Cars.FindAsync(id);
@@ -123,7 +123,7 @@ namespace EShop.Controllers
                 await _context.SaveChangesAsync();
                 return Ok();
             }
-            else return BadRequest();
+            else return BadRequest("Not valid ID");
         }
 
         private async Task<Car> FindCar(int carId)

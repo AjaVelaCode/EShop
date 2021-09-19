@@ -1,44 +1,58 @@
-{
-  "computers": [
-    {
-      "id": 1,
-      "name": "Desktop-Ih",
-      "manufacturer": "Lenovo",
-      "price": 250,
-      "procesor": "i5",
-      "ram": "8Gb"
-    },
-    {
-      "id": 2,
-      "name": "Desktop-nn",
-      "manufacturer": "Lenovo",
-      "price": 245,
-      "procesor": "i7",
-      "ram": "4Gb"
-    },
-    {
-      "id": 3,
-      "name": "Desktop-xx",
-      "manufacturer": "Toshiba",
-      "price": 245,
-      "procesor": "i7",
-      "ram": "4Gb"
-    },
-    {
-      "id": 4,
-      "name": "Desktop-xx",
-      "manufacturer": "Assus",
-      "price": 300,
-      "procesor": "i5",
-      "ram": "12Gb"
-    },
-    {
-      "id": 5,
-      "name": "Desktop-xx",
-      "manufacturer": "Mac",
-      "price": 400,
-      "procesor": "i7",
-      "ram": "12Gb"
-    }
-  ]
-}
+[
+  {
+    "Id": 1,
+    "Name": "Desktop-Ih",
+    "Manufacturer": "Lenovo",
+    "Price": 250.0,
+    "Procesor": "i5",
+    "Ram": "8Gb"
+  },
+  {
+    "Id": 2,
+    "Name": "Desktop-nn",
+    "Manufacturer": "Lenovo",
+    "Price": 245.0,
+    "Procesor": "i7",
+    "Ram": "4Gb"
+  },
+  {
+    "Id": 3,
+    "Name": "Desktop-xx",
+    "Manufacturer": "Toshiba",
+    "Price": 245.0,
+    "Procesor": "i7",
+    "Ram": "4Gb"
+  },
+  {
+    "Id": 4,
+    "Name": "Desktop-xx",
+    "Manufacturer": "Assus",
+    "Price": 300.0,
+    "Procesor": "i5",
+    "Ram": "12Gb"
+  },
+  {
+    "Id": 5,
+    "Name": "Desktop-xx",
+    "Manufacturer": "Mac",
+    "Price": 400.0,
+    "Procesor": "i7",
+    "Ram": "12Gb"
+  },
+  {
+    "Id": 15,
+    "Name": "Desktop-MM",
+    "Manufacturer": null,
+    "Price": 0.0,
+    "Procesor": "i3",
+    "Ram": "4Gb"
+  },
+  {
+    "Id": 16,
+    "Name": "Desktop-AAAAAAA",
+    "Manufacturer": null,
+    "Price": 340.0,
+    "Procesor": "i7",
+    "Ram": "4Gb"
+  }
+]
